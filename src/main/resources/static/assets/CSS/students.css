@@ -1,0 +1,43 @@
+.contieneTitulo{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #a4c972;
+    padding-top: 1rem;
+}
+
+
+.tituloStudents{
+    display: flex;
+    justify-content: center;
+    height: 3rem;
+    background-color: #6bb38e;
+}
+
+.elijeCurso{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+    background-color: #6bb38e;
+}
+
+.inscribirse{
+    background-color: #6bb38e;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+}
+
+.mainStudents{
+    background-color: #6bb38e;
+}
+
+.formClase {
+    margin-bottom: 2rem;
+}
+
+.botonnn{
+    margin-top: 1rem;
+}

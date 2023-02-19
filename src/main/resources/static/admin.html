@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Administrador</title>
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
+    <script src="https://aframe.io/releases/1.3.0/aframe.min.js"></script>
+    <link rel="stylesheet" href="./assets/CSS/main.css">
+     <link rel="stylesheet" href="./assets/CSS/admin.css">
+</head>
+
+<body>
+    <div id="app">
+        <header class="sticky-lg-top">
+            <img src="./assets/img/logo.png" class="logo">
+         
+
+            <div class="contenedroNav">
+                <nav class="navbar navbar-expand-lg sticky">
+                    <div class="container-fluid justify-content-center encabezado">
+                        
+                        
+                        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                            <span class="navbar-toggler-icon"></span>
+                        </button>
+                        <div class="collapse navbar-collapse" id="navbarNav">
+                            <ul class="navbar-nav  fs-4">
+                                <li class="nav-item">
+                                    <a class="nav-link active py-0" aria-current="page" href="./index.html">Home</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link py-0" href="./Course.html">Cursos</a>
+                                </li>
+                      
+                                <li class="nav-item dropdown">
+                                  <a class="nav-link py-0 dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false" href="../web/info.html">Comunidad</a>
+  
+                                  <ul class="dropdown-menu">
+                                      <li><a class="dropdown-item" href="./students.html">Alumnos</a></li>
+                                      <li><a class="dropdown-item" href="./professor.html">Profesores</a></li>
+                                 
+                                      <li><hr class="dropdown-divider"></li>
+                                      <li><a class="dropdown-item" href="./login.html">Iniciar Sesión</a></li>
+                                    </ul>
+                                  </li>
+                                <li class="nav-item">
+                                    <a class="nav-link py-0" href="./contact.html">Contacto</a>
+                                </li>
+                                <li class="nav-item">
+                                 <button class="button-arounder"><a class="nav-linky py-0" href="./login.html">Iniciar Sesión</a></button> 
+                              </li>
+                              
+                            </ul>
+                        </div>
+                    </div>
+                </nav>
+            </div>
+            
+                
+           
+        </header>
+        <main class="mainPag">
+            <div class="parte1">
+            <h2>Lista de alumnos</h2>
+            <div id ="creaCheckbox" >
+              <div class="form-check form-switch" v-for="curso in cursos">
+                <div class="form-check form-check-inline">
+                  <label :for="cursos" >{{curso}}
+                  <input v-model="filtroCategorias" class="checkBox" type="checkbox" role="switch" :id= "categoria" :value= "categoria" >
+                 </label>     
+                  </div>
+              </div>
+            </div>
+          
+      <div id="mainForm">
+        <table class="table table-responsive table-dark table-striped">
+          <thead>
+            <tr>
+             
+              <th scope="col">Nombre</th>
+              <th scope="col">Apellido</th>
+              <th scope="col">Email</th>
+              <th scope="col">Curso</th>
+              <th scope="col">Actualizar</th>
+             
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-for = "alumno of alumnos">
+              <td>{{alumno.name}}</td>
+              <td>{{alumno.lastName}}</td>
+              <td>{{alumno.email}}</td>
+              <td>{{alumno.courses[0]}}</td>
+
+              <td><button v-on:click="mostrarDatos(alumno)" type="button" class="btn btn-dark m-2"><span class="material-symbols-outlined">
+  edit</span></button><button v-on:click="borrarAlumno(alumno)" type="button" class="btn btn-dark"><span class="material-symbols-outlined">
+                delete </span></button></td>
+              
+            </tr>
+            
+          </tbody>
+        </table>
+   
+        </div>
+      </div>
+      <div class="parte1">
+        <h2>Lista de profesores</h2>
+        <div id ="creaCheckbox" >
+          <div class="form-check form-switch" v-for="curso in cursos">
+            <div class="form-check form-check-inline">
+              <label :for="cursos" >{{curso}}
+              <input v-model="filtroCategorias" class="checkBox" type="checkbox" role="switch" :id= "categoria" :value= "categoria" >
+             </label>     
+              </div>
+          </div>
+        </div>
+      
+    <div id="mainForm">
+    <table class="table table-responsive table-dark table-striped">
+      <thead>
+        <tr>
+         
+          <th scope="col">Nombre</th>
+          <th scope="col">Apellido</th>
+       
+          <th scope="col">Curso</th>
+          <th scope="col">Actualizar</th>
+         
+        </tr>
+      </thead>
+      <tbody>
+        <tr v-for = "profesor of profesores">
+          <td>{{profesor.professorName}}</td>
+          <td>{{profesor.professorLastname}}</td>
+       
+          <td>{{profesor.courses[0].name}}</td>
+    
+          <td><button v-on:click="mostrarDatos(profesor)" type="button" class="btn btn-dark m-2"><span class="material-symbols-outlined">
+    edit</span></button><button v-on:click="borrarAlumno()" type="button" class="btn btn-dark"><span class="material-symbols-outlined">
+            delete </span></button></td>
+          
+        </tr>
+        
+      </tbody>
+    </table>
+    
+    </div>
+    </div>  
+      <div class="parte1">
+        <h2>Lista de cursos</h2>
+        <div id ="creaCheckbox" >
+          <div class="form-check form-switch" v-for="curso in cursos">
+            <div class="form-check form-check-inline">
+              <label :for="cursos" >{{curso}}
+              <input v-model="filtroCategorias" class="checkBox" type="checkbox" role="switch" :id= "categoria" :value= "categoria" >
+             </label>     
+              </div>
+          </div>
+        </div>
+      
+  <div id="mainForm">
+    <table class="table table-responsive table-dark table-striped">
+      <thead>
+        <tr>
+         
+          <th scope="col">Nombre</th>
+          <th scope="col">Apellido</th>
+          <th scope="col">Email</th>
+          <th scope="col">Curso</th>
+          <th scope="col">Actualizar</th>
+         
+        </tr>
+      </thead>
+      <tbody>
+        <tr v-for = "alumno of alumnos">
+          <td>{{alumno.name}}</td>
+          <td>{{alumno.lastName}}</td>
+          <td>{{alumno.email}}</td>
+          <td>{{alumno.courses}}</td>
+
+          <td><button v-on:click="mostrarDatos(alumno)" type="button" class="btn btn-dark m-2"><span class="material-symbols-outlined">
+edit</span></button><button v-on:click="borrarAlumno()" type="button" class="btn btn-dark"><span class="material-symbols-outlined">
+            delete </span></button></td>
+          
+        </tr>
+        
+      </tbody>
+    </table>
+
+    </div>
+  </div>
+  
+
+   
+ 
+
+    </main>
+    </div>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8"
+        crossorigin="anonymous"></script>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue@3/dist/vue.global.js"></script>
+    <script src="./assets/JS/admin.js"></script>
+
+</body>
+
+</html>
