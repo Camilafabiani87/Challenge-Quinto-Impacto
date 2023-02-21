@@ -1,11 +1,14 @@
 package com.Challenge.QuintoImpacto.Services.Implements;
 
+import com.Challenge.QuintoImpacto.DTOS.CourseDTO;
 import com.Challenge.QuintoImpacto.Models.Course;
 import com.Challenge.QuintoImpacto.Repositories.CourseRepository;
 import com.Challenge.QuintoImpacto.Services.CourseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 
 @Service
@@ -29,4 +32,11 @@ public class CourseServiceImplement implements CourseService {
 
         return courseRepository.findAll();
     }
+    @Override
+    public Set<CourseDTO> getCoursesDTO() {
+        return courseRepository.findAll().stream().map(course -> new CourseDTO(course)).collect(Collectors.toSet());
+    }
+
+
+
 }

@@ -1,6 +1,8 @@
 package com.Challenge.QuintoImpacto.Configurations;
 
+import com.Challenge.QuintoImpacto.Models.Professor;
 import com.Challenge.QuintoImpacto.Models.Student;
+import com.Challenge.QuintoImpacto.Repositories.ProfessorRepository;
 import com.Challenge.QuintoImpacto.Repositories.StudentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -18,13 +20,17 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 public class WebAuthentication extends GlobalAuthenticationConfigurerAdapter {
     @Autowired
     StudentRepository studentRepository;
+    @Autowired
+    ProfessorRepository professorRepository;
 
     @Override
     public void init(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(inputName -> {
+        auth.userDetailsService(email -> {
 
-            Student student = studentRepository.findByEmail(inputName);
-            if ( student != null ) {
+            Student student = studentRepository.findByEmail(email);
+            Professor professor = professorRepository.findByEmail(email);
+
+            if ( student != null && student.isEnabled()) {
                 if ( student.getEmail().contains("@admin.com") )
                     return new User(student.getEmail(), student.getPassword(),
                             AuthorityUtils.createAuthorityList("ADMIN"));
@@ -33,8 +39,14 @@ public class WebAuthentication extends GlobalAuthenticationConfigurerAdapter {
                             AuthorityUtils.createAuthorityList("Student"));
                 }
 
-            } else {
-                throw new UsernameNotFoundException("Unknown user: " + inputName);
+            }
+            else if(professor != null){
+                return new User(professor.getEmail(), professor.getPassword(),
+                        AuthorityUtils.createAuthorityList("Professor"));
+
+            }
+            else {
+                throw new UsernameNotFoundException("Unknown user: " + email);
             }
         });
     }

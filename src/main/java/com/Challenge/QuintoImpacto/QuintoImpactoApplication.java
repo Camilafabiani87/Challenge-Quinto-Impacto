@@ -32,9 +32,9 @@ public class QuintoImpactoApplication {
 			Student admin = new Student("Admin","Admin",50,LocalDate.parse("1975-08-03"),"admin@admin.com",passwordEncoder.encode("123"));
 			studentRepository.save(admin);
 
-			Professor professor1 = new Professor("Gisela","Ariza");
-			Professor professor2 = new Professor("Camila","Fabiani");
-			Professor professor3 = new Professor("Pablo","Ramirez");
+			Professor professor1 = new Professor("Gisela","Ariza","gi@gmail.com",passwordEncoder.encode("123"));
+			Professor professor2 = new Professor("Camila","Fabiani","ca@gmail.com",passwordEncoder.encode("123"));
+			Professor professor3 = new Professor("Pablo","Ramirez","pablo@gmail.com",passwordEncoder.encode("123"));
 
 			professorRepository.save(professor1);
 			professorRepository.save(professor2);
@@ -44,13 +44,11 @@ public class QuintoImpactoApplication {
 			Course course1 = new Course(CourseName.FOTOGRAFIA, "Horario Manana", "Curso de Fotografia intensivo, 5 semanas",professor1);
 			Course course2 = new Course(CourseName.PROGRAMACION_WEB, "Horario Tarde", "Curso de Programacion intensivo, 5 semanas",professor2);
 			Course course3 = new Course(CourseName.DISEÑO_WEB, "Horario Noche", "Curso de Diseno intensivo, 5 semanas",professor3);
-			Course course4 = new Course(CourseName.DISEÑO_WEB, "Horario Noche", "Curso de Diseno intensivo, 5 semanas");
 
 
 			courseRepository.save(course1);
 			courseRepository.save(course2);
 			courseRepository.save(course3);
-			courseRepository.save(course4);
 
 
 			Student student1 = new Student("Federico","Bon",20,LocalDate.parse("2003-08-03"),"fedebon@gmail.com",passwordEncoder.encode("123"));

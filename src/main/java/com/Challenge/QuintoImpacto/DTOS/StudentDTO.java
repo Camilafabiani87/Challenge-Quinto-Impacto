@@ -19,6 +19,8 @@ public class StudentDTO {
     private String email;
     private String password;
     private Set<CourseName> courses = new HashSet<>();
+    private boolean enabled;
+
 
 
     public StudentDTO() {
@@ -93,5 +95,13 @@ public class StudentDTO {
 
     public void setCourses(Set<CourseName> courses) {
         this.courses = courses;
+    }
+
+    public boolean isEnabled() {
+        return enabled;
+    }
+
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
     }
 }

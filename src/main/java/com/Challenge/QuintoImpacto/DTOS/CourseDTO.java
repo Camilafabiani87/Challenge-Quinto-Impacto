@@ -26,7 +26,12 @@ public class CourseDTO{
         this.name = course.getName();
         this.schedule = course.getSchedule();
         this.studentsDTO = course.getStudentCourses().stream().map(studentCourse-> new StudentDTO(studentCourse.getStudent())).collect(Collectors.toSet());
-        this.professor = course.getProfessor().getProfessorName() + " " + course.getProfessor().getProfessorLastname();
+        if( course.getProfessor() == null)  {
+            this.professor = "No hay profesor para este curso";
+        }else {
+            this.professor = course.getProfessor().getProfessorName() + " " + course.getProfessor().getProfessorLastname();
+
+        }
         this.description = course.getDescription();
     }
 

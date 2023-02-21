@@ -14,9 +14,12 @@ public class ProfessorDTO {
 
     private String professorLastname;
 
+    private String email;
+    private String password;
+    private Set<CourseName> courses = new HashSet<>();
 
-    private Set<CourseDTO> courses = new HashSet<>();
-
+//    private Set<CourseDTO> courses = new HashSet<>();
+    private boolean enabled;
     public ProfessorDTO() {
     }
 
@@ -24,7 +27,10 @@ public class ProfessorDTO {
         this.id = professor.getId();
         this.professorName = professor.getProfessorName();
         this.professorLastname = professor.getProfessorLastname();
-        this.courses = professor.getCourse().stream().map(course -> new CourseDTO(course)).collect(Collectors.toSet());
+        this.courses = professor.getCourse().stream().map(professorCourse -> professorCourse.getName()).collect(Collectors.toSet());
+
+        this.email = professor.getEmail();
+        this.password = professor.getPassword();
     }
 
     public long getId() {
@@ -48,11 +54,35 @@ public class ProfessorDTO {
     }
 
 
-    public Set<CourseDTO> getCourses() {
+    public Set<CourseName> getCourses() {
         return courses;
     }
 
-    public void setCourses(Set<CourseDTO> courses) {
+    public void setCourses(Set<CourseName> courses) {
         this.courses = courses;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public boolean isEnabled() {
+        return enabled;
+    }
+
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
     }
 }

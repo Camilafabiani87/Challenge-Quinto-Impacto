@@ -1,6 +1,7 @@
 package com.Challenge.QuintoImpacto.Services.Implements;
 
 import com.Challenge.QuintoImpacto.Models.Professor;
+import com.Challenge.QuintoImpacto.Models.Student;
 import com.Challenge.QuintoImpacto.Repositories.ProfessorRepository;
 import com.Challenge.QuintoImpacto.Services.ProfessorService;
 import org.springframework.stereotype.Service;
@@ -18,14 +19,20 @@ public class ProfessorServiceImplement implements ProfessorService {
         return professorRepository.findAll();
     }
 
-    @Override
-    public Professor getProfessorById(long id) {
-        return professorRepository.findById(id).get();
-    }
 
     @Override
     public void saveProfessor(Professor professor) {
         professorRepository.save(professor);
+    }
+
+    @Override
+    public Professor findByEmail(String email) {
+        return professorRepository.findByEmail(email);
+    }
+
+    @Override
+    public Professor findById(long id) {
+        return professorRepository.findById(id);
     }
 
 

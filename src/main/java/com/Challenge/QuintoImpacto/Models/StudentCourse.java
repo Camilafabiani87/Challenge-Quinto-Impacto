@@ -10,7 +10,9 @@ public class StudentCourse  {
     @GeneratedValue(strategy = GenerationType.AUTO, generator = "native")
     @GenericGenerator(name="native", strategy = "native")
     private long id;
-
+//    private CourseName name;
+//
+//    private Student studentCurrent;
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "student_id")
     private Student student;
@@ -26,6 +28,14 @@ public class StudentCourse  {
         this.student = student;
         this.course = course;
     }
+
+//    public StudentCourse(CourseName name,Student studentCurrent, Course course) {
+//        this.name = name;
+//        this.studentCurrent = studentCurrent;
+//        this.course = course;
+//    }
+
+
 
     public long getId() {
         return id;

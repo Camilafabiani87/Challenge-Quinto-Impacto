@@ -21,14 +21,15 @@ public class Student {
     private String lastName;
 
     private int age;
-//    private LocalDate dateOfBirth;
 
     private LocalDate dateOfBirth;
 
     private String email;
     private String password;
 
-;
+    private boolean enabled = true;
+
+
 
     public Student() {
     }
@@ -41,6 +42,23 @@ public class Student {
         this.dateOfBirth = dateOfBirth;
         this.email = email;
         this.password = password;
+
+
+    }
+    public Student(String name,String lastName,String email, String password){
+
+        this.name = name;
+        this.lastName = lastName;
+        this.email = email;
+        this.password = password;
+
+
+    }
+    public Student(String name,int age){
+
+        this.name = name;
+        this.age = age;
+
 
 
     }
@@ -108,5 +126,13 @@ public class Student {
     }
 
     public void addCourse(Course course1) {
+    }
+
+    public boolean isEnabled() {
+        return enabled;
+    }
+
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
     }
 }

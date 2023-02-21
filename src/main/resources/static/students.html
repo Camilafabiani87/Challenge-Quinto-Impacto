@@ -66,25 +66,26 @@
         </header>
         <main class="mainStudents">
             
-            <div class="contieneTitulo"><h1>TU PORTAL</h1></div>
+            <div class="contieneTitulo"><h1>¡Hola {{alumno.name}}!</h1></div>
 
             <h3 class="m-5 tituloStudents">MIS CURSOS</h3>
-          
+          <div v-for = "course of alumno.courses">{{course}}</div>
             
             <div class="inscribirse">
-                <div class="col-md-5 elijeCurso">
-                    <h5 class="m-3">Elije tu curso:</h5>
-                 
-    
-                    <select class="seleccionar row">
-                        <option disabled value="">Elije tu curso:</option>
-                        <option>PROGRAMACIÓN WEB</option>
-                        <option>DISEÑO GRÁFICO</option>
-                        <option>FOTOGRAFÍA</option>
-                    </select>
-                </div>
-                <form class="col-md-4 formClase ">
-                    <h5 class="m-3">Completa tus datos para la incripcion:</h5 <div class="m-4">
+              
+                <form  class="col-md-4 formClase ">
+                    <h5 class="m-3">Completa tus datos para la incripcion:</h5> <div class="m-4">
+                        <div class="col-md-5 elijeCurso">
+                            <h5 class="m-3">Elije tu curso:</h5>
+                         
+            
+                            <select v-model="cursoOk" class="seleccionar row">
+                                <option value="">Elije tu curso:</option>
+                                <template v-for = "curso of cursos">
+                                <option :value="curso" >{{curso.name}}</option>
+                            </template>
+                            </select>
+                        </div>
                     <label class="m-1">Nombre y Apellido</label>
                     <input v-model="nombre" class="form-control form-control-sm" type="text" placeholder="Nombre y Apellido"
                         aria-label=".form-control-sm example">
@@ -93,9 +94,6 @@
                     <input v-model="edad" class="form-control form-control-sm" type="number" placeholder="Edad"
                         aria-label=".form-control-sm example">
 
-                    <label class="m-1">Ingrese su fecha de nacimiento:</label>
-                    <input v-model="fechaNacimiento" class="form-control form-control-sm" type="text"
-                        placeholder="06/09/1993" aria-label=".form-control-sm example">
 
                     <label class="m-1">Tiene conocimientos</label>
                     <input class="form-control form-control-sm" type="text" placeholder="Si o No"
@@ -103,12 +101,12 @@
 
                     <div class="d-flex justify-content-center botonnn">
         
-                    <div class="conttieneBoton"> <button @click="inscribir" type="button" class="button-arounder"><span class="linksA">Inscribirme</span></button></div>
+                    <div class="conttieneBoton"> <button @click="inscribir(curso)" type="button" class="button-arounder"><span class="linksA">Inscribirme</span></button></div>
 
                     </div>
                 </form>
             </div>
-      
+         
 
       
         </main>

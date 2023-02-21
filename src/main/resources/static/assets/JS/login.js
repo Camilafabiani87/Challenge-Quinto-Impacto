@@ -6,6 +6,8 @@ const app = Vue.createApp({
             contraseña:"",
             primerNombre:"",
             apellido:"",
+            edad:"",
+            fechaNacimiento:"",
             emailRegistro:"",
             contraseñaRegistro:"",
             contraseñaRegistroRepetida:"",
@@ -99,8 +101,9 @@ const app = Vue.createApp({
         },
         
         registrarUsuario(){
-            axios.post('/api/clients',"firstName="+ this.primerNombre +"&lastName="+ this.apellido +"&email="+ this.emailRegistro +"&password="+ this.contraseñaRegistro)
+            axios.post('/api/registerStudent',"name="+ this.primerNombre +"&lastName="+ this.apellido +"&email="+ this.emailRegistro +"&password="+ this.contraseñaRegistro)
             .then(() => {
+    
                 this.email = this.emailRegistro
                 this.contraseña = this.contraseñaRegistro
                 this.ingresarUsuario()
