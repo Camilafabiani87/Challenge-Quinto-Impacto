@@ -32,14 +32,14 @@ const app = Vue.createApp({
   },
   methods: {
     borrarCurso(curso) {
-        console.log(curso);
-        axios.patch("/api/deleteCourseProfessor", "name=" + curso).then(() => {
-            Swal.fire({
-              background: "#212121",
-              confirmButtonColor: "#1bb5db",
-              title: "El curso ha sido eliminado",
-            }).then((x) => window.location.reload());
-          });
+      console.log(curso);
+      axios.patch("/api/deleteCourseProfessor", "name=" + curso).then(() => {
+        Swal.fire({
+          background: "#212121",
+          confirmButtonColor: "#1bb5db",
+          title: "El curso ha sido eliminado",
+        }).then((x) => window.location.reload());
+      });
     },
   },
   cerrarSesion() {

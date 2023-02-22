@@ -1,28 +1,21 @@
-const app = Vue.
-    createApp({
-        data() {
-            return {
+const app = Vue.createApp({
+  data() {
+    return {
+      cursos: [],
+    };
+  },
 
-              cursos:[],                           
-            }
-        },
-        
-        created() {
-           axios.get('/api/course')
-          .then( response =>{
-            this.cursos = response.data;
-            console.log(this.cursos)
-
-          })
-          .catch(function(error){console.log(error)})   
-           
-          
-         
-        },    
-        methods: {
-                        
-        }
-    } 
-)
-
-.mount('#app');
+  created() {
+    axios
+      .get("/api/course")
+      .then((response) => {
+        this.cursos = response.data;
+        console.log(this.cursos);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  },
+  methods: {},
+})
+.mount("#app");

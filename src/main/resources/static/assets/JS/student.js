@@ -8,7 +8,7 @@ const app = Vue.createApp({
       alumno: {},
       borrarAlumno: "",
       url: "/api/courses",
-      cursoOk:{}
+      cursoOk: {},
     };
   },
 
@@ -22,7 +22,8 @@ const app = Vue.createApp({
       .catch(function (error) {
         console.log(error);
       });
-      axios.get(this.url)
+    axios
+      .get(this.url)
       .then((response) => {
         this.cursos = response.data;
         console.log(this.cursos);
@@ -43,10 +44,7 @@ const app = Vue.createApp({
       }).then((result) => {
         if (result.isConfirmed) {
           axios
-            .post(
-              "/api/courses",
-              this.cursoOk
-            )
+            .post("/api/courses", this.cursoOk)
             .then(
               Swal.fire(
                 "Inscripto!",
@@ -91,7 +89,6 @@ const app = Vue.createApp({
         // cancelButtonColor: '#d33',
         confirmButtonText: "Si",
         cancelButtonText: "No",
-
         reverseButtons: false,
       })
       .then((result) => {
@@ -111,5 +108,4 @@ const app = Vue.createApp({
         }
       });
   },
-})
-.mount("#app");
+}).mount("#app");
