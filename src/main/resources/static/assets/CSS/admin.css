@@ -1,0 +1,22 @@
+.buscador{
+    width: 15rem;
+  
+}
+#buscador{
+    margin-bottom: 1rem;
+}
+/* 
+.form-control{
+    width: 10rem;
+} */
+.selector{
+    display: flex;
+    justify-content:space-between;
+   
+}
+
+#creaCheckbox{
+    display: flex;
+    justify-content: left;
+ align-items: center;
+}
