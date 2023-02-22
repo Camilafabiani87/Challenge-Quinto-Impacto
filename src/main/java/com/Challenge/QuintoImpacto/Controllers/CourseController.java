@@ -14,17 +14,13 @@ import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 import javax.transaction.Transactional;
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
-
 import static java.util.stream.Collectors.toList;
 
-
 @RestController
-@RequestMapping("/api")
-public class CourseController{
+public class CourseController {
     @Autowired
     CourseService courseService;
     @Autowired
@@ -32,32 +28,27 @@ public class CourseController{
     @Autowired
     StudentCourseService studentCourseService;
 
-//    @GetMapping("/courses")
-//    public Set<CourseDTO> getCourses(){
-//        return courseService.getCoursesDTO();
-//    }
-
-
-    @GetMapping ("/courses")
-    public List<CourseDTO> getCourses(){
-        return courseService.getAllCourses().stream().filter(course -> course.isEnabled()).map(course  -> new CourseDTO(course)).collect(toList());
+    @GetMapping("/api/courses")
+    public List<CourseDTO> getCourses() {
+        return courseService.getAllCourses().stream().filter(course -> course.isEnabled()).map(course -> new CourseDTO(course)).collect(toList());
     }
+
     @Transactional
-    @PostMapping("/courses")
+    @PostMapping("/api/courses")
     public ResponseEntity<?> inscriptionCourse(Authentication authentication, @RequestBody CourseDTO courseDTO) {
         Student studentCurrent = studentService.findByEmail(authentication.getName());
         if ( studentCurrent != null ) {
             Course course = courseService.findById(courseDTO.getId());
 
             Set<Course> courseStudentCurrent = studentCurrent.getCourses().stream().map(courseStudent -> courseStudent.getCourse()).collect(Collectors.toSet());
-            if(courseStudentCurrent.contains(course)){
-            return new ResponseEntity<>("Ya estas inscripto a este curso",HttpStatus.FORBIDDEN);
-        }
+            if ( courseStudentCurrent.contains(course) ) {
+                return new ResponseEntity<>("Ya estas inscripto a este curso", HttpStatus.FORBIDDEN);
+            }
             if ( course == null ) {
                 return new ResponseEntity<>("El curso solicitado no existe", HttpStatus.FORBIDDEN);
             }
 
-            StudentCourse studentCourse = new StudentCourse(studentCurrent,course);
+            StudentCourse studentCourse = new StudentCourse(studentCurrent, course);
             studentCourseService.saveStudentCourse((studentCourse));
 
 
@@ -65,17 +56,19 @@ public class CourseController{
         }
         return new ResponseEntity<>("Para inscribirte debes estar autenticado", HttpStatus.FORBIDDEN);
     }
-    @PostMapping("/createCourse")
+
+    @PostMapping("/api/createCourse")
     public ResponseEntity<?> createCourse(Authentication authentication, @RequestParam CourseName courseName) {
         Student adminCurrent = studentService.findByEmail(authentication.getName());
-        if(courseName == null){
+        if ( courseName == null ) {
             return new ResponseEntity<>(HttpStatus.FORBIDDEN);
         }
         courseService.saveCourse(new Course(courseName));
-            return new ResponseEntity<>("El curso se ha creado exitosamente", HttpStatus.CREATED);
+        return new ResponseEntity<>("El curso se ha creado exitosamente", HttpStatus.CREATED);
 
     }
-    @PatchMapping("/deleteCourse")
+
+    @PatchMapping("/api/deleteCourse")
     public ResponseEntity<?> deleteCourse(@RequestParam Long id) {
         Course courseDelete = courseService.findById(id);
 

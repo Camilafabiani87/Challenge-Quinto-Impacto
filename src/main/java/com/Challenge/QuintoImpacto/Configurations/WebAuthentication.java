@@ -30,22 +30,17 @@ public class WebAuthentication extends GlobalAuthenticationConfigurerAdapter {
             Student student = studentRepository.findByEmail(email);
             Professor professor = professorRepository.findByEmail(email);
 
-            if ( student != null && student.isEnabled()) {
+            if ( student != null && student.isEnabled() ) {
                 if ( student.getEmail().contains("@admin.com") )
-                    return new User(student.getEmail(), student.getPassword(),
-                            AuthorityUtils.createAuthorityList("ADMIN"));
+                    return new User(student.getEmail(), student.getPassword(), AuthorityUtils.createAuthorityList("ADMIN"));
                 else {
-                    return new User(student.getEmail(), student.getPassword(),
-                            AuthorityUtils.createAuthorityList("Student"));
+                    return new User(student.getEmail(), student.getPassword(), AuthorityUtils.createAuthorityList("Student"));
                 }
 
-            }
-            else if(professor != null){
-                return new User(professor.getEmail(), professor.getPassword(),
-                        AuthorityUtils.createAuthorityList("Professor"));
+            } else if ( professor != null ) {
+                return new User(professor.getEmail(), professor.getPassword(), AuthorityUtils.createAuthorityList("Professor"));
 
-            }
-            else {
+            } else {
                 throw new UsernameNotFoundException("Unknown user: " + email);
             }
         });

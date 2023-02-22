@@ -1,10 +1,6 @@
 package com.Challenge.QuintoImpacto.Controllers;
 
-
 import com.Challenge.QuintoImpacto.DTOS.StudentDTO;
-import com.Challenge.QuintoImpacto.Models.Course;
-import com.Challenge.QuintoImpacto.Models.CourseName;
-import com.Challenge.QuintoImpacto.Models.Professor;
 import com.Challenge.QuintoImpacto.Models.Student;
 import com.Challenge.QuintoImpacto.Services.CourseService;
 import com.Challenge.QuintoImpacto.Services.ProfessorService;
@@ -15,18 +11,12 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
-
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.time.LocalDate;
 import java.util.List;
-import java.util.Set;
-
 import static java.util.stream.Collectors.toList;
 
 
 @RestController
-public class StudentController  {
+public class StudentController {
     @Autowired
     private StudentService studentService;
 
@@ -44,29 +34,29 @@ public class StudentController  {
         return new StudentDTO(studentService.getStudentById(id));
     }
 
-    @GetMapping ("/api/student")
-    public List<StudentDTO> getStudents(){
+    @GetMapping("/api/student")
+    public List<StudentDTO> getStudents() {
         return studentService.getAllStudents().stream().filter(student -> student.isEnabled()).map(student -> new StudentDTO(student)).collect(toList());
     }
 
     @PostMapping("/api/registerStudent")
-    public ResponseEntity<Object> registrarStudent(@RequestParam String name,@RequestParam String lastName,@RequestParam String email, @RequestParam String password) {
+    public ResponseEntity<Object> registrarStudent(@RequestParam String name, @RequestParam String lastName, @RequestParam String email, @RequestParam String password) {
 
-        if (name.isEmpty()) {
+        if ( name.isEmpty() ) {
             return new ResponseEntity<>("Introduce tu nombre", HttpStatus.FORBIDDEN);
         }
-        if (lastName.isEmpty()) {
+        if ( lastName.isEmpty() ) {
             return new ResponseEntity<>("Introduce tu apellido", HttpStatus.FORBIDDEN);
         }
-        if (email.isEmpty()) {
+        if ( email.isEmpty() ) {
             return new ResponseEntity<>("Introduce tu email", HttpStatus.FORBIDDEN);
         }
-        if (password.isEmpty()) {
+        if ( password.isEmpty() ) {
             return new ResponseEntity<>("Introduce tu contraseña", HttpStatus.FORBIDDEN);
         }
 
 
-        Student registeredStudent = new Student(name,lastName,email,passwordEncoder.encode(password));
+        Student registeredStudent = new Student(name, lastName, email, passwordEncoder.encode(password));
         studentService.saveStudent(registeredStudent);
 
         return new ResponseEntity<>(HttpStatus.CREATED);
@@ -93,6 +83,7 @@ public class StudentController  {
         studentService.saveStudent(deleteStudent);
         return new ResponseEntity<>(HttpStatus.OK);
     }
+
     @GetMapping("/api/student/current")
     public StudentDTO getCurrentStudent(Authentication authentication) {
         return new StudentDTO(studentService.findByEmail(authentication.getName()));

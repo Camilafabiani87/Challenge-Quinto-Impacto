@@ -21,16 +21,15 @@ public class WebAuthorization extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
 
         http.authorizeRequests()
-  //              .antMatchers("/admin/**", "/rest/**", "/h2-console/**").hasAuthority("ADMIN")
-//                .antMatchers(HttpMethod.POST, "/api/students").permitAll()
-//                .antMatchers("/api/students/current/**").hasAnyAuthority("Student", "ADMIN")
-//                .antMatchers("/api/students/accounts/{id}").hasAnyAuthority("Student", "ADMIN")
-//                .antMatchers( "/api/students").hasAuthority("ADMIN")
-                .antMatchers("/index.html","/login.html","/contact.html","/courses.html","/assets","/api/**").permitAll();
-//                .antMatchers("/students.html","/professors.html").hasAnyAuthority("Student","ADMIN");
+                .antMatchers("/admin/**","/admin.html", "/rest/**", "/h2-console/**").hasAuthority("ADMIN")
+                .antMatchers(HttpMethod.POST, "/api/student").permitAll()
+                .antMatchers("/api/student/current/**").hasAnyAuthority("Student", "ADMIN")
+                .antMatchers("/api/student/{id}").hasAnyAuthority("Student", "ADMIN")
+                .antMatchers("/api/student","/api/professor","/api/courses").hasAnyAuthority("Student","Professor", "ADMIN")
+                .antMatchers("/index.html", "/login.html", "/contact.html", "/courses.html", "/assets", "/api/**").permitAll()
+                .antMatchers("/students.html","/professor.html").hasAnyAuthority("Student","Professor","ADMIN");
 
         http.formLogin()
-
                 .usernameParameter("email")
                 .passwordParameter("password")
                 .loginPage("/api/login");
@@ -43,9 +42,7 @@ public class WebAuthorization extends WebSecurityConfigurerAdapter {
         http.headers().frameOptions().disable();
         // if user is not authenticated, just send an authentication failure response
         http.exceptionHandling().authenticationEntryPoint((req, res, exc) -> {
-            if(req.getRequestURI().contains("web")){
-                res.sendRedirect("/login.html");}
-        });
+            if ( req.getRequestURI().contains("web") ) {res.sendRedirect("/login.html");}});
         // if login is successful, just clear the flags asking for authentication
         http.formLogin().successHandler((req, res, auth) -> clearAuthenticationAttributes(req));
         // if login fails, just send an authentication failure response
@@ -53,6 +50,7 @@ public class WebAuthorization extends WebSecurityConfigurerAdapter {
         // if logout is successful, just send a success response
         http.logout().logoutSuccessHandler(new HttpStatusReturningLogoutSuccessHandler());
     }
+
     private void clearAuthenticationAttributes(HttpServletRequest request) {
         HttpSession session = request.getSession(false);
         if ( session != null ) {

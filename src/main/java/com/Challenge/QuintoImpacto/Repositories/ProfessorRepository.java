@@ -7,8 +7,6 @@ import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 
 @RepositoryRestResource
 public interface ProfessorRepository extends JpaRepository<Professor,Long> {
-
-//    Professor findByProfessorName(String professorName);
     Professor findByEmail(String email);
     Professor findById(long id);
 
