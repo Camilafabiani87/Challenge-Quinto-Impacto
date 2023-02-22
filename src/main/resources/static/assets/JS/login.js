@@ -54,12 +54,10 @@ const app = Vue.createApp({
                         this.alumno = response.data;
                         console.log(this.alumno);
                         
-                        if(this.alumno.email = "admin@admin.com"){
-                         return window.location.href="/admin.html"
-                         
-
-                        }
-                            window.location.href="/students.html"
+                        if(this.alumno.email == "admin@admin.com"){
+                         window.location.href="/admin.html"
+                         }
+                      else{window.location.href="/students.html"}  
 
                         
                       })
