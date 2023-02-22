@@ -16,7 +16,7 @@ public class CourseDTO{
     private String description;
 
     private Set<StudentDTO> studentsDTO = new HashSet<>();
-
+    private boolean enabled;
 
     public CourseDTO() {
     }
@@ -77,5 +77,13 @@ public class CourseDTO{
 
     public void setStudentsDTO(Set<StudentDTO> studentsDTO) {
         this.studentsDTO = studentsDTO;
+    }
+
+    public boolean isEnabled() {
+        return enabled;
+    }
+
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
     }
 }

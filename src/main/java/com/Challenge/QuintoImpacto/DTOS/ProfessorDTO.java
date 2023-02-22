@@ -18,7 +18,6 @@ public class ProfessorDTO {
     private String password;
     private Set<CourseName> courses = new HashSet<>();
 
-//    private Set<CourseDTO> courses = new HashSet<>();
     private boolean enabled;
     public ProfessorDTO() {
     }

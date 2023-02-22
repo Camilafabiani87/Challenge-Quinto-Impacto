@@ -2,12 +2,17 @@ package com.Challenge.QuintoImpacto.Controllers;
 
 
 import com.Challenge.QuintoImpacto.DTOS.ProfessorDTO;
+import com.Challenge.QuintoImpacto.DTOS.StudentDTO;
+import com.Challenge.QuintoImpacto.Models.Course;
+import com.Challenge.QuintoImpacto.Models.CourseName;
 import com.Challenge.QuintoImpacto.Models.Professor;
 import com.Challenge.QuintoImpacto.Models.Student;
+import com.Challenge.QuintoImpacto.Services.CourseService;
 import com.Challenge.QuintoImpacto.Services.ProfessorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import static java.util.stream.Collectors.toList;
@@ -17,6 +22,8 @@ public class ProfessorController {
 
     @Autowired
     private ProfessorService professorService;
+    @Autowired
+    private CourseService courseService;
 
 
 
@@ -70,5 +77,15 @@ public class ProfessorController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-
+    @GetMapping("/api/professor/current")
+    public ProfessorDTO getCurrentProfessor(Authentication authentication) {
+        return new ProfessorDTO(professorService.findByEmail(authentication.getName()));
+    }
+    @PatchMapping("/api/deleteCourseProfessor")
+    public ResponseEntity<Object> deleteCourseProfessor(@RequestParam String name){
+        Course course = courseService.findByName(CourseName.valueOf(name));
+        course.setProfessor(null);
+        courseService.saveCourse(course);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
 }

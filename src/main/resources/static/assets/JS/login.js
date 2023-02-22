@@ -15,6 +15,8 @@ const app = Vue.createApp({
             password:"",
             text:"",
             type:"",
+            profesor:"",
+            alumno:"",
            
      
         }
@@ -33,7 +35,39 @@ const app = Vue.createApp({
 
        
         ingresarUsuario(){
-            axios.post('/api/login',"email="+ this.email + " &password=" + this.contraseña).then(() => window.location.href = '/students.html')
+            axios.post('/api/login',"email="+ this.email + " &password=" + this.contraseña).then((response) => {
+                
+                    axios
+                      .get("/api/professor/current")
+                      .then((response) => {
+                        this.profesor = response.data;
+                        console.log(this.profesor);
+                        window.location.href="/professor.html"
+
+                      })
+                      .catch(function (error) {
+                        console.log(error);
+                      });
+                      axios
+                      .get("/api/student/current")
+                      .then((response) => {
+                        this.alumno = response.data;
+                        console.log(this.alumno);
+                        
+                        if(this.alumno.email = "admin@admin.com"){
+                         window.location.href="/admin.html"
+
+                        }else{
+                            window.location.href="/students.html"
+
+                        }
+                      })
+                      .catch(function (error) {
+                        console.log(error);
+                      });
+                  
+            
+            })
             .catch((error) =>{this.error = error.respuesta
                 if (this.error == "Missing data"){
                     Swal.fire({

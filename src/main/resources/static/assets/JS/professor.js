@@ -4,25 +4,24 @@ const app = Vue.createApp({
       cursos: [],
       nombre: "",
       edad: 0,
-      fechaNacimiento: "",
-      alumno: {},
-      borrarAlumno: "",
+      profesor: {},
       url: "/api/courses",
-      cursoOk:{}
+      cursoOk: {},
     };
   },
 
   created() {
     axios
-      .get("/api/student/current")
+      .get("/api/professor/current")
       .then((response) => {
-        this.alumno = response.data;
-        console.log(this.alumno);
+        this.profesor = response.data;
+        console.log(this.profesor);
       })
       .catch(function (error) {
         console.log(error);
       });
-      axios.get(this.url)
+    axios
+      .get(this.url)
       .then((response) => {
         this.cursos = response.data;
         console.log(this.cursos);
@@ -32,44 +31,16 @@ const app = Vue.createApp({
       });
   },
   methods: {
-    inscribir() {
-      Swal.fire({
-        title: "¿Seguro quieres inscribirte en este Curso?",
-        icon: "warning",
-        showCancelButton: true,
-        confirmButtonColor: "#3085d6",
-        cancelButtonColor: "#d33",
-        confirmButtonText: "Si, inscribirme!",
-      }).then((result) => {
-        if (result.isConfirmed) {
-          axios
-            .post(
-              "/api/courses",
-              this.cursoOk
-            )
-            .then(
-              Swal.fire(
-                "Inscripto!",
-                "Has sido inscripto con éxito!",
-                "success"
-              ).then((response) => window.location.reload())
-            );
-        }
-      });
+    borrarCurso(curso) {
+        console.log(curso);
+        axios.patch("/api/deleteCourseProfessor", "name=" + curso).then(() => {
+            Swal.fire({
+              background: "#212121",
+              confirmButtonColor: "#1bb5db",
+              title: "El curso ha sido eliminado",
+            }).then((x) => window.location.reload());
+          });
     },
-  },
-
-  borrarAlumno() {
-    axios
-      .delete("/api/student", `name=${this.borrarAlumno}`)
-      .then((x) => window.location.reload())
-      .catch((response) =>
-        Swal.fire({
-          icon: "error",
-          title: "Oops..!",
-          text: "Algún dato es incorrecto!",
-        })
-      );
   },
   cerrarSesion() {
     const swalWithBootstrapButtons = Swal.mixin({
@@ -107,9 +78,8 @@ const app = Vue.createApp({
           });
           axios
             .post("/api/logout")
-            .then((response) => (window.location.href = "/index.html"));
+            .then((response) => (window.location.href = "/web/index.html"));
         }
       });
   },
-})
-.mount("#app");
+}).mount("#app");

@@ -44,11 +44,19 @@ public class QuintoImpactoApplication {
 			Course course1 = new Course(CourseName.FOTOGRAFIA, "Horario Manana", "Curso de Fotografia intensivo, 5 semanas",professor1);
 			Course course2 = new Course(CourseName.PROGRAMACION_WEB, "Horario Tarde", "Curso de Programacion intensivo, 5 semanas",professor2);
 			Course course3 = new Course(CourseName.DISEÑO_WEB, "Horario Noche", "Curso de Diseno intensivo, 5 semanas",professor3);
+			Course course4 = new Course(CourseName.COMMUNITY_MANAGER, "Horario Noche", "Curso de Diseno intensivo, 5 semanas");
+			Course course5 = new Course(CourseName.MARKETING, "Horario Tarde", "Curso de Diseno intensivo, 5 semanas");
+
+
 
 
 			courseRepository.save(course1);
 			courseRepository.save(course2);
 			courseRepository.save(course3);
+			courseRepository.save(course4);
+			courseRepository.save(course5);
+
+
 
 
 			Student student1 = new Student("Federico","Bon",20,LocalDate.parse("2003-08-03"),"fedebon@gmail.com",passwordEncoder.encode("123"));

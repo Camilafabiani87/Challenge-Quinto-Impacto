@@ -23,7 +23,7 @@ public class Course {
 
     private String description;
 
-
+    private boolean enabled = true;
     public Course() {
     }
 
@@ -38,6 +38,13 @@ public class Course {
         this.name = name;
         this.schedule = schedule;
         this.description = description;
+
+
+    }
+    public Course(CourseName name) {
+        this.name = name;
+
+
 
 
     }
@@ -87,11 +94,14 @@ public class Course {
         this.description = description;
     }
 
-//    public void addProfessor(Professor professor1) {
-//    }
-//    public void addStudent(Student student) {
-//        this.studentList.add(student);
-//    }
+    public boolean isEnabled() {
+        return enabled;
+    }
+
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
+    }
+
     public void addCourse(StudentCourse studentCourse){
     studentCourse.setCourse(this);
     studentCourses.add(studentCourse);

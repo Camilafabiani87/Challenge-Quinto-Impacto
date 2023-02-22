@@ -2,6 +2,8 @@ package com.Challenge.QuintoImpacto.Services.Implements;
 
 import com.Challenge.QuintoImpacto.DTOS.CourseDTO;
 import com.Challenge.QuintoImpacto.Models.Course;
+import com.Challenge.QuintoImpacto.Models.CourseName;
+import com.Challenge.QuintoImpacto.Models.Professor;
 import com.Challenge.QuintoImpacto.Repositories.CourseRepository;
 import com.Challenge.QuintoImpacto.Services.CourseService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,9 +20,16 @@ public class CourseServiceImplement implements CourseService {
     CourseRepository courseRepository;
 
     @Override
-    public Course getCourseById(long id) {
-        return courseRepository.findById(id).get();
+    public Course findById(long id) {
+        return courseRepository.findById(id);
     }
+
+    @Override
+    public Course findByName(CourseName name) {
+            return courseRepository.findByName(name);
+        }
+
+
 
     @Override
     public void saveCourse(Course course) {
