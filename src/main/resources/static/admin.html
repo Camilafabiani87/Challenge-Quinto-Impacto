@@ -170,7 +170,36 @@
         </div>
         <div class="parte1">
           <h2>Lista de profesores</h2>
+          <div class="selector">
+            <div id="creaCheckbox">
+              <div class="form-check form-switch" v-for="curso in cursos">
+                <div class="form-check form-check-inline">
+                  <label :for="curso.id"
+                    >{{curso.name}}
+                    <input
+                      v-model="cursosFiltrados2"
+                      class="checkBox"
+                      type="checkbox"
+                      :id="curso.id"
+                      :value="curso.name"
+                    />
+                  </label>
+                </div>
+              </div>
+            </div>
 
+            <form id="buscador" class="d-flex" role="search">
+              <input
+                v-model="textoBuscar2"
+                class="form-control me-2 buscador"
+                type="search"
+                aria-label="Search"
+              />
+              {{filtroDoble2}}
+              <img src="./assets/img/icons8-google-web-search-50.png">
+            </form>
+            
+          </div>
           <div id="mainForm">
             <table class="table table-responsive table-dark table-striped">
               <thead>

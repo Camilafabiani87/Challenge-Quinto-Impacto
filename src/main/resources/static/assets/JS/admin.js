@@ -11,7 +11,6 @@ const app = Vue.createApp({
       alumnoModificar: "",
       profesoresUrl: "/api/professor",
       profesores: [],
-      profesoresFiltrados: [],
       nombreProfesor: "",
       apellidoProfesor: "",
       cursosProfesor: "",
@@ -19,12 +18,15 @@ const app = Vue.createApp({
       cursosUrl: "/api/courses",
       cursos: [],
       cursosFiltrados: [],
+      cursosFiltrados2:[],
       nombreCurso: "",
       horario: "",
       cursosProfesor: "",
       cursoBorrar: "",
       backupAlumnos: [],
       textoBuscar: "",
+      textoBuscar2: "",
+      backupProfesores:[]
     };
   },
 
@@ -69,7 +71,6 @@ const app = Vue.createApp({
     obtenerProfesores(URL) {
       axios.get(URL).then((response) => {
         this.profesores = response.data;
-        this.profesoresFiltrados = this.profesores;
         console.log(this.profesores);
       });
     },
@@ -203,5 +204,28 @@ const app = Vue.createApp({
         this.alumnos = primerFiltro;
       }
     },
+    filtroDoble2() {
+      let primerFiltro2 = this.backupProfesores.filter((profesor) =>
+        profesor.professorName.toLowerCase().includes(this.textoBuscar2.toLowerCase())
+      );
+      console.log(this.cursosFiltrados2);
+      if (this.cursosFiltrados2.length) {
+        let profesoresDobleFiltro = [];
+        this.cursosFiltrados2.forEach((curso) => {
+          primerFiltro2.forEach((profesor) => {
+            if (
+              profesor.courses.includes(curso) &&
+              !profesoresDobleFiltro.includes(profesor)
+            ) {
+              profesoresDobleFiltro.push(profesor);
+            }
+          });
+        });
+        this.profesores = profesoresDobleFiltro;
+      } else {
+        this.profesores = primerFiltro2;
+      }
+    },
+    
   },
 }).mount("#app");
